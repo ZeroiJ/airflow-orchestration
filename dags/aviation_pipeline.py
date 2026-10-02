@@ -3,7 +3,7 @@ import requests
 from datetime import datetime, timedelta
 
 from airflow import DAG
-from airflow.operators.bash import BashOperator
+from airflow.providers.standard.operators.bash import BashOperator
 from airflow.models import Variable
 
 # Define alerting callback for task failure
@@ -66,7 +66,7 @@ with DAG(
     'aviation_pipeline',
     default_args=default_args,
     description='Aviation data ingestion and dbt transformation pipeline',
-    schedule_interval='@hourly',
+    schedule='@hourly',
     start_date=datetime(2023, 1, 1),
     catchup=True,  # Enable backfill support
     tags=['aviation', 'dbt'],

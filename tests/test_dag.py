@@ -2,13 +2,13 @@ import pytest
 from airflow.models import DagBag
 
 def test_dag_loaded():
-    dagbag = DagBag(dag_folder='dags/', include_examples=False)
+    dagbag = DagBag(dag_folder='dags/')
     assert len(dagbag.import_errors) == 0, "No import errors"
     
     dag_id = 'aviation_pipeline'
     assert dag_id in dagbag.dags
     
-    dag = dagbag.get_dag(dag_id)
+    dag = dagbag.dags[dag_id]
     
     # Verify tasks
     task_ids = {task.task_id for task in dag.tasks}
